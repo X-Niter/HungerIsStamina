@@ -6,7 +6,7 @@ Anytime you Stamina changes your hunger bar will update accordingly.
 
 ```
 One Flaw I'm going to mention to you right now! Listen up!
-This will make do NOTHING, so I highly suggest you make food give MMOCore stamina + whatever buff you want to allow the food to have!
+This will make food do NOTHING, so I highly suggest you make food give MMOCore stamina + whatever buff you want to allow the food to have!
 
 In the future I have plans to add EVERY food to the config with Stamina values which you can change.
 
