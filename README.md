@@ -11,7 +11,7 @@ Current features ---
 
 
 Future Plan
-- [] Sprint until not enough stamina, currently can't sprint when hunger is < 3/4
-- [] Cancel Jumping when not enough Stamina
-- [] Cancel Swimming action when not enough stamina
+- [ ] Sprint until not enough stamina, currently can't sprint when hunger is < 3/4
+- [ ] Cancel Jumping when not enough Stamina
+- [ ] Cancel Swimming action when not enough stamina
 - [x] Listen for Suggestions from you amazing keyboard titans!
