@@ -1,0 +1,5 @@
+# HungerIsStamina Food File, Developer(s): X_Niter, Version: ${project.version}
+
+# Here is all the food values that you can change.
+# food = The amount of hunger to give when eaten
+# Damage = The amount of damage you want the food to give, don't get to excited with that!

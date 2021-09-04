@@ -2,7 +2,18 @@ name: HungerIsStamina
 version: '${project.version}'
 main: com.xniter.HungerIsStamina.HungerIsStamina
 api-version: 1.16
-prefix: MMOCORE-HIS-ADDON
+prefix: HIS
 authors: [ X_Niter ]
 description: MMOCore Addon to make Hunger Stamina
-depend: ["MMOCore"]
+depend: [MMOCore]
+softdepend: [PlaceholderAPI]
+commands:
+  his:
+    description: Reload command
+    permission: hungerisstamina.reload
+    permission-message: You do not have permission!
+    usage: /<command> [reload]
+permissions:
+  hungerisstamina.reload:
+    description: Allows reloading plugin
+    default: op
