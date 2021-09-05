@@ -130,3 +130,4 @@ EnableCustomFoodValues: True
   
   ### Future Plan
 - [x] Listen for Suggestions from you amazing keyboard titans!
+- [ ] Stamina Bar Placeholder, A revamp to MMOCores.
