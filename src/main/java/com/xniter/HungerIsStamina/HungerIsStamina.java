@@ -1,17 +1,15 @@
 package com.xniter.HungerIsStamina;
 
-import com.xniter.HungerIsStamina.Events.Damage;
-import com.xniter.HungerIsStamina.Events.FoodConsume;
-import com.xniter.HungerIsStamina.Events.FoodLevelChange;
-import com.xniter.HungerIsStamina.Events.ResourceUpdate;
-import com.xniter.HungerIsStamina.Listeners.TickingTasks;
+import com.xniter.HungerIsStamina.Events.*;
+import com.xniter.HungerIsStamina.Listeners.Regeneration;
 import com.xniter.HungerIsStamina.Listeners.PlayerJoin;
+import com.xniter.HungerIsStamina.PlaceholderAPI.PlaceholderInit;
 import com.xniter.HungerIsStamina.Utilities.*;
 import com.xniter.HungerIsStamina.commands.Commands;
 import com.xniter.HungerIsStamina.configuration.Foods;
 import com.xniter.HungerIsStamina.configuration.Message;
 import lombok.Getter;
-import net.Indyuce.mmocore.MMOCore;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,12 +24,8 @@ public class HungerIsStamina extends JavaPlugin {
     @Getter
     public static HungerIsStamina instance;
 
-    // Plugin Dependencies
-    @Getter
-    private MMOCore mmoCore;
     @Getter
     private boolean usePlaceholderAPI = false;
-    // Dependencies end
 
     @Getter
     private Files files;
@@ -60,17 +54,14 @@ public class HungerIsStamina extends JavaPlugin {
         consoleOutput.setPrefix(Objects.requireNonNull(Utils.color(Message.PREFIX.getValue())));
 
         registerListeners();
-        registerEvents();
 
         checkDependencies();
 
         getCommand("his").setExecutor(new Commands(this));
 
-        enableMetrics();
-
         if (getConfig().getBoolean("Update-Checker", false)) {
             getServer().getScheduler().runTaskLaterAsynchronously(this, () -> {
-                UpdateChecker updater = new UpdateChecker(this, 9885);
+                UpdateChecker updater = new UpdateChecker(this, 95964);
                 try {
                     if (updater.checkForUpdates()) {
                         newVersion = updater.getLatestVersion();
@@ -82,7 +73,7 @@ public class HungerIsStamina extends JavaPlugin {
         }
 
         final int configVersion = getConfig().contains("config-version", true) ? getConfig().getInt("config-version") : -1;
-        final int defConfigVersion = getConfig().contains("config-version", false) ? getConfig().getInt("config-version") : -1;
+        final int defConfigVersion = 5;
         if(configVersion != defConfigVersion) {
             getLogger().warning("You may be using an outdated config.yml!");
             getLogger().warning("(Your config version: '" + configVersion + "' | Expected config version: '" + defConfigVersion + "')");
@@ -92,21 +83,21 @@ public class HungerIsStamina extends JavaPlugin {
             consoleOutput.err("&4PLUGIN DISABLED, SHUTTING DOWN!!");
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        int pluginId = 12704;
+        Metrics metrics = new Metrics(this, pluginId);
+        consoleOutput.info("&8MetricsLite enabled");
     }
 
     private void registerListeners() {
         PluginManager pluginManager = this.getServer().getPluginManager();
-        pluginManager.registerEvents(new TickingTasks(this), this);
         pluginManager.registerEvents(new Commands(this), this);
-        pluginManager.registerEvents(new PlayerJoin(this), this);
-    }
-
-    private void registerEvents() {
-        PluginManager pluginManager = this.getServer().getPluginManager();
         pluginManager.registerEvents(new Damage(this), this);
         pluginManager.registerEvents(new FoodConsume(this), this);
         pluginManager.registerEvents(new FoodLevelChange(this), this);
         pluginManager.registerEvents(new ResourceUpdate(this), this);
+        pluginManager.registerEvents(new PlayerJoin(this), this);
+        pluginManager.registerEvents(new Regeneration(this), this);
     }
 
     public void reload(CommandSender sender) {
@@ -151,12 +142,8 @@ public class HungerIsStamina extends JavaPlugin {
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI") && !usePlaceholderAPI) {
             usePlaceholderAPI = true;
             consoleOutput.info("Found PlaceholderAPI! &aUsing it for placeholders.");
+            new PlaceholderInit(this).register();
         }
-    }
-
-    public void enableMetrics() {
-        new Metrics(this);
-        consoleOutput.info("&8MetricsLite enabled");
     }
 
     @Override
