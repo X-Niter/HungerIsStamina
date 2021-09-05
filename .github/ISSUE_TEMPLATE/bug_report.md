@@ -22,7 +22,7 @@ assignees: ''
 
 
 
-**Screenshots**
+**Screenshots, logs, pastbins, gifs, videos, etc**
 If applicable
 
 
@@ -30,12 +30,14 @@ If applicable
 
 **Plugin/Server versions**
 Fill in what's applicable to you!
- - HungerIsStamina:  "VersionHere" 
- - MMOCore:  "VersionHere" 
- - MythicLib:  "VersionHere" 
- - PaperMc:  "VersionHere" 
- - Spigot:  "VersionHere" 
- - Bukkit:  "VersionHere" 
+
+ - HungerIsStamina: "VersionHere" 
+ - MMOCore: "VersionHere" 
+ - MythicLib: "VersionHere" 
+ - PaperMc: "VersionHere" 
+ - Spigot: "VersionHere" 
+ - Bukkit: "VersionHere" 
+ - Purpur: "VersionHere" 
 
 
 
