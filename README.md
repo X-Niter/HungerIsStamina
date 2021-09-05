@@ -1,5 +1,19 @@
-# HungerIsStamina-MMOCoreAddon
-MMOCore Addon to influence a full fledged stamina system
+<p>
+  <a href="https://discord.gg/n3uEJwg">
+      <img src="https://discordapp.com/api/guilds/401537312246202389/widget.png" alt="Discord-Server"/>
+  </a>
+  <a href="https://twitter.com/X_Niter">
+    <img alt="Twitter: X_Niter" src="https://img.shields.io/twitter/follow/X_Niter.svg?style=social" target="_blank" />
+  </a>
+  <a href="https://patreon.com/X_Niter">
+    <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3DX_Niter%26type%3Dpatrons&style=flat" alt="Support me on Patreon" />
+  </a>
+  <a href="https://www.paypal.com/paypalme/RileyBWayz">
+    <img src="https://img.shields.io/badge/Donate-PayPal-blue.svg">
+</p>
+  
+# HungerIsStamina or (HIS)
+An advanced stamina system addon for MMOCore
 
 HungerIsStamina's only purpose was to fullfill a custom need for a full fledged Stamina system in the Minecraft game.
 The Original intent was to simply make running take away stamina and sync it with the hunger bar, though the goals of that changed very quickly.
