@@ -7,6 +7,7 @@ import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.event.PlayerResourceUpdateEvent;
 import net.Indyuce.mmocore.api.player.PlayerData;
 import net.Indyuce.mmocore.api.player.profess.resource.PlayerResource;
+import net.Indyuce.mmocore.api.player.stats.StatType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -27,9 +28,10 @@ public class ResourceUpdate implements Listener {
         final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(e.getData().getPlayer());
 
         if (e.getResource() == PlayerResource.STAMINA) {
-            if (data.getStamina() <= 0.3 && p.getFoodLevel() <= 15) {
-                data.setStamina(0);
-                e.setCancelled(true);
+            if (main.getConfig().getBoolean("SimpleStamina", false)) {
+                if (staminaToFoodCalc(data) != p.getFoodLevel()) {
+                    p.setFoodLevel(staminaToFoodCalc(data));
+                }
             }
             if (main.getConfig().getBoolean("SprintRegenDisable", true)) {
                 if (p.isSprinting()) {
@@ -37,7 +39,7 @@ public class ResourceUpdate implements Listener {
                 }
             }
             if (!main.getConfig().getBoolean("SimpleStamina", false)) {
-                if (p.getFoodLevel() < main.getConfig().getInt("HungerRegenLimit", 10)) {
+                if (data.getStamina() <= 0.3 && p.getFoodLevel() < main.getConfig().getInt("HungerRegenLimit", 10) || p.getFoodLevel() < main.getConfig().getInt("HungerRegenLimit", 10)) {
                     e.setCancelled(true);
                 }
             }
@@ -56,5 +58,9 @@ public class ResourceUpdate implements Listener {
             }
 
         }
+    }
+
+    public int staminaToFoodCalc(PlayerData data) {
+        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(StatType.MAX_STAMINA) * 20.0D)));
     }
 }

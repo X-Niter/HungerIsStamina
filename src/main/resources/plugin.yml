@@ -17,9 +17,3 @@ permissions:
   hungerisstamina.debug:
     description: Allows turning debug on
     default: op
-  hungerisstamina.load.simplestamina:
-    description: Allows setting HungerIsStamina to SimpleStamina mode
-    default: op
-  hungerisstamina.load.advancedstamina:
-    description: Allows setting HungerIsStamina to Default Advanced Stamina mode
-    default: op
