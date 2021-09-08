@@ -128,8 +128,7 @@ EnableCustomFoodValues: True
   ```
  </details>
   
-  
-  You can download the plugin [On Spigot](https://www.spigotmc.org/resources/hunger-is-stamina-mmocore-addon.95964/)
+  [Find it on spigot!](https://www.spigotmc.org/resources/hunger-is-stamina-mmocore-addon.95964/)
   
   ## Features
   - Enable/Disable Plugin
