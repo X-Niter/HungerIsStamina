@@ -12,15 +12,21 @@
     <img src="https://img.shields.io/badge/Donate-PayPal-blue.svg">
 </p>
   
-# HungerIsStamina or (HIS)
-An advanced stamina system addon for MMOCore
+# HungerIsStamina
+"The MMOCore Addon that many asked for, time and time again"
 
-HungerIsStamina's only purpose was to fullfill a custom need for a full fledged Stamina system in the Minecraft game.
-The Original intent was to simply make running take away stamina and sync it with the hunger bar, though the goals of that changed very quickly.
+HIS' was meant to be a private project for a custom stamina system similar to what many of you may have seen on Wynncraft, however, It wasn't a public feature for others to enjoy on their servers! SAD!
+MMOCore introducing the Stamina resource opened up the perfect path to making this feature finally live to the public but naturally with a twist!
+Many Mythic members in the past have asked about making stamina more "Integrated" with the base gameplay other than a cost for abilities and/or weapons.
+Numerous individuals definitely thought it was an unusual idea for this stamina system to be a thing that ultimately COULD have lead the Mythic team to not introduce this feature for very good reasoning.
+Thanks to that, I've managed to build a whole addon dedicated to nothing but MMOCores Stamina resource and blending into the base game.
 
-It is now a full Stamina system which too include stamina costs for Sprinting, Jumping & Swimming, simply to better integrate MMOCore into Vanilla Minecraft servers a bit more then what it is.
+# SO HERE IT IS!
+A small system for draining stamina when sprinting is now a fully configurable plugin to include Stamina draining for Sprinting, Jumping, & swimming.
+Along with that, you can choose between two systems, the default out of box "Advanced Stamina" which comes pre-configured for the best results.
+OR Simple Stamina which completely modifies the hunger bar values to represent the amount of stamina you have.
 
-Here is the default configuration file, it should be pretty understanding as to what features this addon introduces.
+Unfortunately, I'm bad with explanations, so I provided the config file here in the spoiler to give you a better idea of everything this plugin can do!
 <details>
   <summary>Config.yml</summary>
   
@@ -128,6 +134,7 @@ EnableCustomFoodValues: True
   ```
  </details>
   
+  [Find it on spigot!](https://www.spigotmc.org/resources/hunger-is-stamina-mmocore-addon.95964/)
   
   ## Features
   - Enable/Disable Plugin
