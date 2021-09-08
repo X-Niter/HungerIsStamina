@@ -1,14 +1,24 @@
 package com.xniter.HungerIsStamina.Events;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
+import com.xniter.HungerIsStamina.Utilities.DefaultFood;
+import com.xniter.HungerIsStamina.configuration.Files;
+import com.xniter.HungerIsStamina.configuration.Message;
+import lombok.NonNull;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
+import net.Indyuce.mmocore.api.player.stats.StatType;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+
+import java.util.Objects;
+import java.util.Random;
 
 public class FoodConsume implements Listener {
 
@@ -21,58 +31,56 @@ public class FoodConsume implements Listener {
     @EventHandler
     private void foodConsume(PlayerItemConsumeEvent e) {
         Player p = e.getPlayer();
-        // Set string to the name of consumed item
         String item = e.getItem().getType().name().toLowerCase();
+        PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(Objects.requireNonNull(p.getPlayer()).getUniqueId());
+        FileConfiguration config = main.getConfig();
+        FileConfiguration foodConfig = main.getFoodConfig();
+        Random random = new java.util.Random();
+        int rng = random.nextInt(2) + 1;
 
 
-        if (main.getConfig().getBoolean("EnableCustomFoodValues", true)) {
-            // Check if the consumed item is in the Foods.yml
+
+        if (p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && !p.isInvulnerable()) {
             if (!e.getItem().getType().equals(Material.POTION)) {
-                if (main.getFoodConfig().getString(item) != null) {
-                    // Cancel the event
-                    e.setCancelled(true);
-
-                    // Don't remove item if player is in creative or spectator
-                    if (p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
-                        p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount() - 1);
-                    }
-                    // Add food level to player
-                    p.setFoodLevel((int) Math.min(p.getFoodLevel() + main.getFoodConfig().getDouble(item + ".food"), 20));
-                    // If the damage is not 0 damage the player
-                    if (main.getFoodConfig().getDouble(item + ".damage") != 0) {
-                        p.damage(main.getFoodConfig().getDouble(item + ".damage"));
-                    }
-                }
-            }
-        }
-
-
-        if (main.getConfig().getBoolean("FoodFillStaminaPartial", false)) {
-            final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(p.getPlayer().getUniqueId());
-            if (!e.getItem().getType().equals(Material.POTION)) {
-                if (p.getFoodLevel() <= 19) {
-                    // Check if the consumed item is in the DefaultFoodValues class
-                    if (main.getFoodConfig().getDefaults().getString(item) != null) {
-                        // Cancel the event
+                if (config.getBoolean("EnableCustomFoodValues", true)) {
+                    if (foodConfig.getString(item) != null) {
                         e.setCancelled(true);
-
-                        // Put the food down to 19 to allow eating
-                        p.setFoodLevel(p.getFoodLevel() - 1);
-
-                        // Don't remove item if player is in creative or spectator
-                        if (p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
-                            p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount() - 1);
+                        p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount() - 1);
+                        if (!config.getBoolean("SimpleStamina", false)) {
+                            p.setFoodLevel((int) Math.min(p.getFoodLevel() + foodConfig.getDouble(item + ".food"), 20));
+                            if (config.getBoolean("FoodFillStaminaPartial", true)) {
+                                data.setStamina((int) Math.min(data.getStamina() + foodConfig.getDouble(item + ".food") / rng + rng - rng, 20));
+                            }
+                        } else {
+                            data.setStamina(data.getStamina() + foodConfig.getDouble(item + ".food"));
+                            p.setFoodLevel(staminaToFoodCalc(data));
                         }
-                        data.setStamina((int) Math.min(data.getStamina() + main.getFoodConfig().getDefaults().getDouble(item + ".food"), 20));
-                        // Add food level to player
-                        p.setFoodLevel((int) Math.min(p.getFoodLevel() + main.getFoodConfig().getDouble(item + ".food"), 20));                        // If the damage is not 0 damage the player
-                        if (main.getFoodConfig().getDouble(item + ".damage") != 0) {
-                            p.damage(main.getFoodConfig().getDouble(item + ".damage"));
+                        if (foodConfig.getDouble(item + ".damage") != 0) {
+                            p.damage(foodConfig.getDouble(item + ".damage"));
                         }
-
+                    }
+                }
+                else if (DefaultFood.valueOfName(item) != null) {
+                    e.setCancelled(true);
+                    p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount() - 1);
+                    if (!config.getBoolean("SimpleStamina", false)) {
+                        p.setFoodLevel(p.getFoodLevel() + DefaultFood.valueOfName(item).hungerValue());
+                        if (config.getBoolean("FoodFillStaminaPartial", true)) {
+                            data.setStamina((int) Math.min(data.getStamina() + (float)DefaultFood.valueOfName(item).hungerValue() / rng + rng - rng, 20));
+                        }
+                    } else {
+                        data.setStamina(data.getStamina() + (float)DefaultFood.valueOfName(item).hungerValue() / rng + rng - rng);
+                        p.setFoodLevel(staminaToFoodCalc(data));
+                    }
+                    if (DefaultFood.valueOfName(item).damageValue() != 0) {
+                        p.damage(DefaultFood.valueOfName(item).damageValue());
                     }
                 }
             }
         }
+    }
+
+    public int staminaToFoodCalc(PlayerData data) {
+        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(StatType.MAX_STAMINA) * 20.0D)));
     }
 }

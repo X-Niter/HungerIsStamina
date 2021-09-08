@@ -6,7 +6,7 @@ import lombok.Getter;
 public class Files {
 
     @Getter
-    private ConfigFile settings;
+    private ConfigFile config;
     @Getter
     private ConfigFile messages;
     @Getter
@@ -17,7 +17,7 @@ public class Files {
     }
 
     public void load() {
-        settings = new ConfigFile(HungerIsStamina.getInstance(), "Settings.yml");
+        config = new ConfigFile(HungerIsStamina.getInstance(), "config.yml");
         messages = new ConfigFile(HungerIsStamina.getInstance(), "Messages.yml");
         foods = new ConfigFile(HungerIsStamina.getInstance(), "Foods.yml");
     }

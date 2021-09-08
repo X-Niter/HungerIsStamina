@@ -17,4 +17,5 @@ public class DependencyCheck implements Listener {
     public void onEnable(final PluginEnableEvent event) {
         plugin.checkDependencies();
     }
+
 }

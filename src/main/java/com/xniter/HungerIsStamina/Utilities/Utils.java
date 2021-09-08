@@ -17,8 +17,7 @@ import java.util.Map;
 @UtilityClass
 public class Utils {
 
-    public final List<String> bypass = new ArrayList<>();
-    public final List<String> dataCheck = new ArrayList<>();
+    HungerIsStamina main;
     public final List<Color> colors = new ArrayList<>();
 
     static {

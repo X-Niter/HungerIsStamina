@@ -1,0 +1,271 @@
+###############################################################################
+#                     ██╗  ██╗██╗███████╗                                     #
+#                     ██║  ██║██║██╔════╝                                     #
+#                     ███████║██║███████╗                                     #
+#                     ██╔══██║██║╚════██║                                     #
+#                     ██║  ██║██║███████║                                     #
+#                     ╚═╝  ╚═╝╚═╝╚══════╝.V${project.version}                 #
+#                      Developer X_Niter                                      #
+#                        SPONSORED BY:                                        #
+#                           :none:                                            #
+# WIKI -> https://github.com/X-Niter/HungerIsStamina/wiki
+###############################################################################
+
+###############################################################################
+#|===========================================================================|#
+#| WHAT IS "Simple Stamina" ?                                                |#
+#|                                                                           |#
+#| SimpleStamina allows your hunger bar to become a Stamina bar by scaling   |#
+#| Stamina into Hunger, while respecting ALL vanilla and plugin events that, |#
+#| change the player's stamina & Hunger value by blending them together.     |#
+#|                                                                           |#
+#|                                                                           |#
+#| In simple terms, Hunger becomes stamina.                                  |#
+#| "Kinda the Labeled of the plugin, right?, Well guess what there's more!" :)  |#
+#|---------------------------------------------------------------------------|#
+#| WHAT IS "Advanced Stamina" ?                                              |#
+#|                                                                           |#
+#| Setting "SimpleStamina" to false will use the default Advanced Stamina    |#
+#| feature which separates Stamina and the Hunger bar.                       |#
+#| Your character will consume your stamina before it consumes your hunger   |#
+#| as consequence for exhausting your stamina reserves.                      |#
+#| This is to implement an RPG scenario of over-exhaustion, leading to the   |#
+#| inability to sprint after depletion, requiring you to take a break from   |#
+#| action and grab a quick bite or apply a helping potion, etc.              |#
+#|                                                                           |#
+#| To make changing between SimpleStamina and Default Advanced Stamina a     |#
+#| simple process, I implemented two commands which will automatically set   |#
+#| the plugin configuration to the desired mode setup.                       |#
+#| You can still go back through the configs and change settings, these      |#
+#| commands are here to make setup and mode changing simple & faster!        |#
+#|===========================================================================|#
+###############################################################################
+SimpleStamina: false
+
+
+
+
+###############################################################################
+#|===========================================================================|#
+#|                          SPRINTING STAMINA                                |#
+###############################################################################
+
+# Enable Sprinting to drain stamina.
+# True = Enabled | False = Disabled
+# Default True
+StaminaCostForSprintingEnabled: true
+
+
+# The amount of stamina that is drained when sprinting.
+# Default 1
+StaminaCostForSprinting: 1
+
+
+# Stamina is set to drain on a tick timer to allow for more control on "Difficulty".
+# The number you set here will set the timer to that number.
+# Note: 20 Ticks is equal to 1 second.
+# Default Every 20 Ticks(1 Second) the player sprints, drain 1 stamina.
+StaminaDrainTickSpeedSprint: 50
+
+
+# Disable stamina regen when Sprinting
+# This may sound silly, but stamina is always regenerating even when using it.
+# This option allows you to control this small detail
+# Default True
+SprintRegenDisable: true
+
+
+
+
+###############################################################################
+#|===========================================================================|#
+#|                           JUMPING STAMINA                                 |#
+###############################################################################
+
+# Enable Jumping to drain stamina
+# True = Enabled | False = Disabled
+# Default True
+StaminaCostForJumpingEnabled: true
+
+
+# The amount of stamina that is drained when a player jumps.
+# Default 2
+StaminaCostForJumping: 1
+
+# Stamina is set to drain on a tick timer to allow for more control on "Difficulty".
+# The number you set here will set the timer to that number.
+# Note: 20 Ticks is equal to 1 second.
+# Default Every 5 Ticks(half a Second) the player jumps, drain 2 stamina.
+# Jumping is a single action that ends quickly, so the timer is shorter to catch efficiently.
+# Tweak this around as needed, but I did set the number to the most optimal time.
+# If you're wanting stamina to drain more when jumping, I'd just leave this be and use the stamina jump cost option.
+StaminaDrainTickSpeedJump: 18
+
+
+# Disable stamina regen when Sprinting
+# This may sound silly, but stamina is always regenerating even when using it.
+# This option allows you to control this small detail
+# Default True
+JumpRegenDisable: true
+
+
+
+
+###############################################################################
+#|===========================================================================|#
+#|                           SWIMMING STAMINA                                |#
+###############################################################################
+
+# Enable Swimming to drain stamina
+# True = Enabled | False = Disabled
+# Default True
+StaminaCostForSwimmingEnabled: true
+
+
+# The amount of stamina that is drained when a player is swimming.
+# Default 1
+StaminaCostForSwimming: 1
+
+
+# Stamina is set to drain on a tick timer to allow for more control on "Difficulty".
+# The number you set here will set the timer to that number.
+# Note: 20 Ticks is equal to 1 second.
+# Default Every 20 Ticks(1 Second) the player is swimming, drain 1 stamina.
+StaminaDrainTickSpeedSwim: 100
+
+
+# Disable stamina regen when Swimming
+# This may sound silly, but stamina is always regenerating even when using it.
+# This option allows you to control this small detail
+# Default True
+SwimRegenDisable: false
+
+
+
+###############################################################################
+#|===========================================================================|#
+#|                      STAMINA BAR PLACEHOLDER                              |#
+#|                                                                           |#
+#| If you have Simple Stamina Enabled, this really isn't important           |#
+###############################################################################
+
+# Here you can set a custom stamina bar to use in MMOCores action bar!
+# Placeholder to use this is '%his_custom_sprint_bar%'
+
+# "SimpleStamina" will auto disable the Custom Stamina Bar
+
+
+# How many characters long your bar will be.
+StaminaBarLength: 6
+
+# Input one symbol or Character to use for your bar.
+StaminaBarCharacter: "⚡"
+
+
+# Define the character to display with %his_stamina_value% placeholder
+# Default will look like this, "⚡20"
+# This will respect spaces so if you wanted "⚡ 20", you would change this setting to "⚡ "
+StaminaValueCharacter: "⚡"
+
+
+# Should the Stamina bar or Stamina Value placeholder constantly show or only show when sprinting, jumping, or swimming?
+# If True, will always show.
+# If False, will only show when sprinting, jumping, or swimming.
+ConstantBar: false
+ConstantValue: false
+
+
+# When 'ConstantBar' is false, and the player is not sprinting, jumping, or swimming; should we show stamina in number value on the action bar?
+# For this to work, place the placeholder '%his_stamina_value%' anywhere in the MMOCore action bar config.
+AlternatingBarAndValue: true
+
+
+# When 'AlternatingBarAndValue' is true, %his_custom_sprint_bar% and %stamina_value% placeholder becomes a spacer of "|"
+# This setting will allow you to change the spacer to what ever character you want.
+# If you want this to be a blank space, set this to " "
+SpacerForBarPlaceHolder: "|"
+SpacerForValuePlaceHolder: "|"
+
+
+###############################################################################
+#|===========================================================================|#
+#|                                FOOD                                       |#
+###############################################################################
+
+# When food bar/stamina is empty or 0, should the player take Vanilla Minecraft Starvation Damage.
+# If True then player will take Minecraft Starvation Damage.
+# If False, then the player will not take Starvation damage.
+StarvationDamage: true
+
+
+# If Starvation Damage is true, how much damage should they take?
+StarvationDamageValue: 1
+
+
+# Enabled Food Regen
+# DEFAULT, True = Enabled
+# This is automatically disabled on "SimpleStamina"
+EnableRegen: true
+
+
+# The max a player hunger will regen too.
+# 1 equal to half a drumstick.
+# DEFAULT, 10 = Half a Hunger
+# This is automatically disabled on "SimpleStamina"
+HungerRegenLimit: 10
+
+
+# Amount of hunger to regen every "RegenTimeInTicks"
+# This is automatically disabled on "SimpleStamina"
+HungerRegenAmount: 1
+
+
+# Time it takes to regen Hunger
+# 20 Ticks equals 1 second
+# DEFAULT, 4 seconds
+# This is automatically disabled on "SimpleStamina"
+RegenTimeInTicks: 120
+
+
+# When player eats to fill the hunger bar, do you want food to fill a little bit of stamina.
+# This is automatically disabled on "SimpleStamina"
+FoodFillStaminaPartial: true
+
+
+# Enables you to change food values in Foods.yml
+EnableCustomFoodValues: false
+
+
+
+
+###############################################################################
+#|===========================================================================|#
+#|                       PLUGIN EXTRAS                                       |#
+#|  Extra config options that didn't fit inside any general category,        |#
+#|  these options should never need to be touched,                           |#
+#|  the defaults here are the MOST recommended settings!                     |#
+###############################################################################
+
+# Get notified when there is a new version available.
+# Default True
+Update-Checker: true
+
+
+# Is this Plugin Enabled
+IsPluginEnabled: true
+
+
+# Shows more feedback in console on specific plugin events.
+# Mainly utilized as a developer tool to see detailed feedback on things, nothing you might never need.
+# Default False
+Debug-Enabled: false
+
+
+# DO NOT TOUCH, IT'S AT THE BOTTOM FOR A REASON!
+config-version: 2
+
+
+# Disables Stamina from regenerating.
+# This option is already available in MMOCore's config file, please go use that instead!
+# The reason this is here is for me to test specific features in the plugin.
+DisableStaminaRegen: false

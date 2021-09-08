@@ -5,15 +5,21 @@ api-version: 1.16
 prefix: HIS
 authors: [ X_Niter ]
 description: MMOCore Addon to make Hunger Stamina
-depend: [MMOCore]
-softdepend: [PlaceholderAPI]
+depend: [MMOCore, PlaceholderAPI]
 commands:
-  his:
-    description: Reload command
-    permission: hungerisstamina.reload
-    permission-message: You do not have permission!
-    usage: /<command> [reload]
+  hungerisstamina:
+    aliases: [his]
+    description: Main Plugin Command
 permissions:
   hungerisstamina.reload:
     description: Allows reloading plugin
+    default: op
+  hungerisstamina.debug:
+    description: Allows turning debug on
+    default: op
+  hungerisstamina.load.simplestamina:
+    description: Allows setting HungerIsStamina to SimpleStamina mode
+    default: op
+  hungerisstamina.load.advancedstamina:
+    description: Allows setting HungerIsStamina to Default Advanced Stamina mode
     default: op

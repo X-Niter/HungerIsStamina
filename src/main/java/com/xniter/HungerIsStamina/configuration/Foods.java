@@ -9,7 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class Foods {
 
     private static void setDefaults() {
-        addConfigFoods("apple", 2, 0);
+        addConfigFoods("apple", 4, 0);
         addConfigFoods("baked_potato", 5, 0);
         addConfigFoods("beetroot", 1, 0);
         addConfigFoods("beetroot_soup", 6, 0);
@@ -20,7 +20,7 @@ public class Foods {
         addConfigFoods("cooked_beef", 8, 0);
         addConfigFoods("cooked_chicken", 6, 0);
         addConfigFoods("cooked_cod", 5, 0);
-        addConfigFoods("cooked_mutton", 6f, 0);
+        addConfigFoods("cooked_mutton", 6, 0);
         addConfigFoods("cooked_porkchop", 8, 0);
         addConfigFoods("cooked_rabbit", 5, 0);
         addConfigFoods("cooked_salmon", 6, 0);
@@ -46,7 +46,7 @@ public class Foods {
         addConfigFoods("salmon", 2, 0);
         addConfigFoods("rotten_flesh", 4, 2);
         addConfigFoods("spider_eye", 2, 2);
-        addConfigFoods("suspicious_stew", 6, 1);
+        addConfigFoods("suspicious_stew", 6, 0);
         addConfigFoods("sweet_berries", 2, 0);
         addConfigFoods("tropical_fish", 1, 0);
     }
@@ -68,10 +68,14 @@ public class Foods {
         this.damage = damage;
     }
 
+    public void getDefaults() {
+        setDefaults();
+    }
+
 
     public static void load() {
 
-        FileConfiguration foods = HungerIsStamina.getInstance().getFiles().getFoods().getFileConfiguration();
+        //FileConfiguration foods = HungerIsStamina.getInstance().getFiles().getFoods().getFileConfiguration();
 
         setDefaults();
 
