@@ -14,6 +14,8 @@
   
 # HungerIsStamina or (HIS)
 An advanced stamina system addon for MMOCore
+  
+  You can download the plugin [On Spigot](https://www.spigotmc.org/resources/hunger-is-stamina-mmocore-addon.95964/)
 
 HungerIsStamina's only purpose was to fullfill a custom need for a full fledged Stamina system in the Minecraft game.
 The Original intent was to simply make running take away stamina and sync it with the hunger bar, though the goals of that changed very quickly.
