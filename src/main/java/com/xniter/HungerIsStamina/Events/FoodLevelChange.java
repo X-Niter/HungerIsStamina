@@ -36,5 +36,8 @@ public class FoodLevelChange implements Listener {
         if (main.getConfig().getBoolean("SimpleStamina", false)) {
             e.setCancelled(true);
         }
+        if (p.getFoodLevel() < 0) {
+            p.setFoodLevel(0);
+        }
     }
 }
