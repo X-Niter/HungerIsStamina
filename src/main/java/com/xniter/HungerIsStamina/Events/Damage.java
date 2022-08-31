@@ -1,13 +1,9 @@
 package com.xniter.HungerIsStamina.Events;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-
-import java.util.Objects;
 
 public class Damage implements Listener {
 

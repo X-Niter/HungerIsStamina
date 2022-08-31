@@ -1,24 +1,16 @@
 package com.xniter.HungerIsStamina.Listeners;
 
-import com.google.common.collect.Sets;
 import com.xniter.HungerIsStamina.HungerIsStamina;
 import com.xniter.HungerIsStamina.Utilities.IJumping;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
-import net.Indyuce.mmocore.api.player.stats.StatType;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.UUID;
 
 import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
 

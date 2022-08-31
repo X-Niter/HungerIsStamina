@@ -2,13 +2,8 @@ package com.xniter.HungerIsStamina.Events;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
 import com.xniter.HungerIsStamina.Utilities.DefaultFood;
-import com.xniter.HungerIsStamina.configuration.Files;
-import com.xniter.HungerIsStamina.configuration.Message;
-import lombok.NonNull;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
-import net.Indyuce.mmocore.api.player.stats.StatType;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;

@@ -4,7 +4,8 @@ import com.xniter.HungerIsStamina.HungerIsStamina;
 import com.xniter.HungerIsStamina.configuration.Message;
 import lombok.experimental.UtilityClass;
 import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
@@ -52,7 +53,7 @@ public class Utils {
     }
 
     @Nullable
-    public String color(@Nullable String msg) {
+    public static String color(@Nullable String msg) {
         return color(msg, '&');
     }
 

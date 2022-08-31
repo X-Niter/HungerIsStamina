@@ -1,15 +1,11 @@
 package com.xniter.HungerIsStamina.PlaceholderAPI;
 
-import com.xniter.HungerIsStamina.Events.JumpChecker;
 import com.xniter.HungerIsStamina.HungerIsStamina;
 import com.xniter.HungerIsStamina.Utilities.IJumping;
-import com.xniter.HungerIsStamina.configuration.Message;
 import io.lumine.mythic.lib.MythicLib;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
-import net.Indyuce.mmocore.api.player.stats.StatType;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;

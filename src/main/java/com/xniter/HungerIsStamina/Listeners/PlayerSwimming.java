@@ -3,14 +3,12 @@ package com.xniter.HungerIsStamina.Listeners;
 import com.xniter.HungerIsStamina.HungerIsStamina;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
-import net.Indyuce.mmocore.api.player.stats.StatType;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Objects;
 
 import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;

@@ -4,7 +4,6 @@ import com.xniter.HungerIsStamina.HungerIsStamina;
 import com.xniter.HungerIsStamina.Utilities.IJumping;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
-import net.Indyuce.mmocore.api.player.stats.StatType;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

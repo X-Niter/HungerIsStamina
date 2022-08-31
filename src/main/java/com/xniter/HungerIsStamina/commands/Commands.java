@@ -1,9 +1,8 @@
 package com.xniter.HungerIsStamina.commands;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
-import com.xniter.HungerIsStamina.configuration.Message;
 import com.xniter.HungerIsStamina.Utilities.Utils;
-import org.bukkit.Bukkit;
+import com.xniter.HungerIsStamina.configuration.Message;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

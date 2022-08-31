@@ -1,16 +1,12 @@
 package com.xniter.HungerIsStamina.Events;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
-import com.xniter.HungerIsStamina.Listeners.PlayerJumping;
 import com.xniter.HungerIsStamina.Utilities.IJumping;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.event.PlayerResourceUpdateEvent;
 import net.Indyuce.mmocore.api.player.PlayerData;
 import net.Indyuce.mmocore.api.player.profess.resource.PlayerResource;
-import net.Indyuce.mmocore.api.player.stats.StatType;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

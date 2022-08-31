@@ -2,17 +2,11 @@ package com.xniter.HungerIsStamina.Listeners;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
 import com.xniter.HungerIsStamina.Utilities.IJumping;
-import com.xniter.HungerIsStamina.Utilities.Utils;
 import com.xniter.HungerIsStamina.configuration.Message;
-import net.Indyuce.mmocore.MMOCore;
-import net.Indyuce.mmocore.api.event.PlayerResourceUpdateEvent;
-import net.Indyuce.mmocore.api.player.PlayerData;
-import net.Indyuce.mmocore.api.player.profess.resource.PlayerResource;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.util.Vector;
 
 import java.util.Collection;
 import java.util.Iterator;
