@@ -1,6 +1,7 @@
 package com.xniter.HungerIsStamina.Listeners;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
+import com.xniter.HungerIsStamina.Utilities.IJumping;
 import com.xniter.HungerIsStamina.Utilities.Utils;
 import com.xniter.HungerIsStamina.configuration.Message;
 import net.Indyuce.mmocore.MMOCore;
@@ -19,6 +20,8 @@ import java.util.Iterator;
 public class Regeneration implements Listener {
     public static HungerIsStamina main;
 
+    private static IJumping iJumping;
+
     public Regeneration(HungerIsStamina his) {
         main = his;
 
@@ -33,7 +36,7 @@ public class Regeneration implements Listener {
                 if (p != null && p.isOnline() && main.getConfig().getBoolean("EnableRegen", true)) {
                     if (!main.getConfig().getBoolean("SimpleStamina", false)) {
                         //final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(p.getPlayer().getUniqueId());
-                        if (!p.isSprinting() && !p.isJumping() && !p.isSwimming() && !p.isDead() && !p.isInvulnerable() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && p.getFoodLevel() != 20) {
+                        if (!p.isSprinting() && !iJumping.isJumping() && !p.isSwimming() && !p.isDead() && !p.isInvulnerable() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && p.getFoodLevel() != 20) {
                             if (p.getFoodLevel() != main.getConfig().getInt("HungerRegenLimit", 10)) {
                                 p.setFoodLevel(p.getFoodLevel() + main.getConfig().getInt("HungerRegenAmount", 1));
                             }

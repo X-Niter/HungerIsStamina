@@ -20,6 +20,8 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import java.util.Objects;
 import java.util.Random;
 
+import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
+
 public class FoodConsume implements Listener {
 
     HungerIsStamina main;
@@ -81,6 +83,6 @@ public class FoodConsume implements Listener {
     }
 
     public int staminaToFoodCalc(PlayerData data) {
-        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(StatType.MAX_STAMINA) * 20.0D)));
+        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20.0D)));
     }
 }

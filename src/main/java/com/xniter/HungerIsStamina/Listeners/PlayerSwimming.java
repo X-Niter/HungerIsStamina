@@ -11,6 +11,9 @@ import org.bukkit.event.Listener;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
+
+import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
 
 public class PlayerSwimming implements Listener {
     public static HungerIsStamina main;
@@ -20,12 +23,10 @@ public class PlayerSwimming implements Listener {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(main, () -> {
             Collection<? extends Player> online_players = Bukkit.getOnlinePlayers();
-            Iterator var3 = online_players.iterator();
 
-            while (var3.hasNext()) {
-                Player p = (Player) var3.next();
+            for (Player p : online_players) {
                 if (p != null && p.isOnline() && main.getConfig().getBoolean("StaminaCostForSwimmingEnabled", true)) {
-                    final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(p.getPlayer().getUniqueId());
+                    final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(Objects.requireNonNull(p.getPlayer()).getUniqueId());
                     if (p.isInWater() && !p.isDead() && !p.isSprinting() && !p.isInvulnerable() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
 
                         // Default System
@@ -53,6 +54,6 @@ public class PlayerSwimming implements Listener {
     }
 
     public int staminaToFoodCalc(PlayerData data) {
-        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(StatType.MAX_STAMINA) * 20.0D)));
+        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20.0D)));
     }
 }

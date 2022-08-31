@@ -1,8 +1,8 @@
 package com.xniter.HungerIsStamina.Events;
 
-import com.destroystokyo.paper.event.player.PlayerJumpEvent;
 import com.xniter.HungerIsStamina.HungerIsStamina;
 import com.xniter.HungerIsStamina.Listeners.PlayerJumping;
+import com.xniter.HungerIsStamina.Utilities.IJumping;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.event.PlayerResourceUpdateEvent;
 import net.Indyuce.mmocore.api.player.PlayerData;
@@ -14,9 +14,13 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
+
 public class ResourceUpdate implements Listener {
 
     HungerIsStamina main;
+
+    private static IJumping iJumping;
 
     public ResourceUpdate(HungerIsStamina his) {
         main = his;
@@ -44,7 +48,7 @@ public class ResourceUpdate implements Listener {
                 }
             }
             if (main.getConfig().getBoolean("JumpRegenDisable", true)) {
-                if (p.isJumping()) {
+                if (iJumping != null && iJumping.isJumping()) {
                     e.setCancelled(true);
                 }
             }
@@ -61,6 +65,6 @@ public class ResourceUpdate implements Listener {
     }
 
     public int staminaToFoodCalc(PlayerData data) {
-        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(StatType.MAX_STAMINA) * 20.0D)));
+        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20.0D)));
     }
 }

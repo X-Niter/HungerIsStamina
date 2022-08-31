@@ -1,6 +1,7 @@
 package com.xniter.HungerIsStamina.Listeners;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
+import com.xniter.HungerIsStamina.Utilities.IJumping;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.player.PlayerData;
 import net.Indyuce.mmocore.api.player.stats.StatType;
@@ -12,8 +13,12 @@ import org.bukkit.event.Listener;
 import java.util.Collection;
 import java.util.Iterator;
 
+import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
+
 public class PlayerSprinting implements Listener {
     public static HungerIsStamina main;
+
+    private static IJumping iJumping;
 
 
     public PlayerSprinting(HungerIsStamina his) {
@@ -33,7 +38,7 @@ public class PlayerSprinting implements Listener {
                     if (!p.isDead() && !p.isSwimming() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && !p.isInvulnerable()) {
                         // Run & Jumping
                         if (!main.getConfig().getBoolean("SimpleStamina", false)) {
-                            if (p.isSprinting() && p.isJumping()) {
+                            if (p.isSprinting() && iJumping.isJumping()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForSprinting", 1) - main.getConfig().getInt("StaminaCostForJumping", 2));
                                 if (data.getStamina() <= 1) {
                                     data.setStamina(0);
@@ -41,7 +46,7 @@ public class PlayerSprinting implements Listener {
                                 }
                             }
                             // Running and not Jumping
-                            if (p.isSprinting() && !p.isJumping()) {
+                            if (p.isSprinting() && !iJumping.isJumping()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForSprinting", 1));
                                 if (data.getStamina() <= 1) {
                                     data.setStamina(0);
@@ -50,12 +55,12 @@ public class PlayerSprinting implements Listener {
                             }
                         }
                         if (main.getConfig().getBoolean("SimpleStamina", false)) {
-                            if (p.isSprinting() && p.isJumping()) {
+                            if (p.isSprinting() && iJumping.isJumping()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForSprinting", 1) - main.getConfig().getInt("StaminaCostForJumping", 2));
                                 p.setFoodLevel(staminaToFoodCalc(data));
                             }
                             // Running and not Jumping
-                            if (p.isSprinting() && !p.isJumping()) {
+                            if (p.isSprinting() && !iJumping.isJumping()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForSprinting", 1));
                                 p.setFoodLevel(staminaToFoodCalc(data));
                             }
@@ -67,6 +72,6 @@ public class PlayerSprinting implements Listener {
         }, 0, (int) main.getConfig().get("StaminaDrainTickSpeedSprint", 20));
     }
     public int staminaToFoodCalc(PlayerData data) {
-        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(StatType.MAX_STAMINA) * 20.0D)));
+        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20.0D)));
     }
 }

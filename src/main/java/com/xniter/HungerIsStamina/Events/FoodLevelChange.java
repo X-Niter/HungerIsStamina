@@ -1,6 +1,7 @@
 package com.xniter.HungerIsStamina.Events;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
+import com.xniter.HungerIsStamina.Utilities.IJumping;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +10,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 public class FoodLevelChange implements Listener {
 
     HungerIsStamina main;
+    IJumping iJumping;
 
     public FoodLevelChange(HungerIsStamina his) {
         main = his;
@@ -24,7 +26,7 @@ public class FoodLevelChange implements Listener {
             }
         }
         if (main.getConfig().getBoolean("StaminaCostForJumpingEnabled", true)) {
-            if (p.isJumping()) {
+            if (iJumping != null && iJumping.isJumping()) {
                 e.setCancelled(true);
             }
         }
