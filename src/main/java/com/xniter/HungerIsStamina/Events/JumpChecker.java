@@ -2,7 +2,6 @@ package com.xniter.HungerIsStamina.Events;
 
 import com.google.common.collect.Sets;
 import com.xniter.HungerIsStamina.HungerIsStamina;
-import com.xniter.HungerIsStamina.Utilities.IJumping;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,11 +12,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import java.util.Set;
 import java.util.UUID;
 
-public class JumpChecker implements Listener, IJumping {
+public class JumpChecker implements Listener {
 
     HungerIsStamina main;
 
-    protected static boolean jumping = false;
+    private static boolean jumping = false;
 
     public JumpChecker(HungerIsStamina his) {
         main = his;
@@ -38,26 +37,30 @@ public class JumpChecker implements Listener, IJumping {
                     if (Double.compare(player.getVelocity().getY(), jumpVelocity) == 0 || Double.compare(player.getVelocity().getY(), jumpBoostOneVelocity) == 0 || Double.compare(player.getVelocity().getY(), jumpBoostTwoVelocity) == 0) {
                         //player.setJumping(true);
                         setJumping(true);
+                        if (!isJumping()) {
+                            jumping = true;
+                        }
                     }
                 }
             }
         }
         if (player.isOnGround()) {
             //player.setJumping(false);
-            setJumping(true);
+            setJumping(false);
+            if (isJumping()) {
+                jumping = false;
+            }
             prevPlayersOnGround.add(player.getUniqueId());
         } else {
             prevPlayersOnGround.remove(player.getUniqueId());
         }
     }
 
-    @Override
-    public boolean isJumping() {
+    public static boolean isJumping() {
         return jumping;
     }
 
-    @Override
-    public void setJumping(boolean isJumping) {
+    public static void setJumping(boolean isJumping) {
         jumping = isJumping;
     }
 }

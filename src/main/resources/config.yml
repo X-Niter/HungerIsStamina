@@ -33,11 +33,6 @@
 #| inability to sprint after depletion, requiring you to take a break from   |#
 #| action and grab a quick bite or apply a helping potion, etc.              |#
 #|                                                                           |#
-#| To make changing between SimpleStamina and Default Advanced Stamina a     |#
-#| simple process, I implemented two commands which will automatically set   |#
-#| the plugin configuration to the desired mode setup.                       |#
-#| You can still go back through the configs and change settings, these      |#
-#| commands are here to make setup and mode changing simple & faster!        |#
 #|===========================================================================|#
 ###############################################################################
 SimpleStamina: false

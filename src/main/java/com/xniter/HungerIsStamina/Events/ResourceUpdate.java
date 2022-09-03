@@ -1,7 +1,6 @@
 package com.xniter.HungerIsStamina.Events;
 
 import com.xniter.HungerIsStamina.HungerIsStamina;
-import com.xniter.HungerIsStamina.Utilities.IJumping;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.event.PlayerResourceUpdateEvent;
 import net.Indyuce.mmocore.api.player.PlayerData;
@@ -15,8 +14,6 @@ import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
 public class ResourceUpdate implements Listener {
 
     HungerIsStamina main;
-
-    private static IJumping iJumping;
 
     public ResourceUpdate(HungerIsStamina his) {
         main = his;
@@ -44,7 +41,7 @@ public class ResourceUpdate implements Listener {
                 }
             }
             if (main.getConfig().getBoolean("JumpRegenDisable", true)) {
-                if (iJumping != null && iJumping.isJumping()) {
+                if (JumpChecker.isJumping()) {
                     e.setCancelled(true);
                 }
             }

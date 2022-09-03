@@ -1,7 +1,7 @@
 package com.xniter.HungerIsStamina.PlaceholderAPI;
 
+import com.xniter.HungerIsStamina.Events.JumpChecker;
 import com.xniter.HungerIsStamina.HungerIsStamina;
-import com.xniter.HungerIsStamina.Utilities.IJumping;
 import io.lumine.mythic.lib.MythicLib;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.Indyuce.mmocore.MMOCore;
@@ -17,8 +17,6 @@ import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
 public class PlaceholderInit extends PlaceholderExpansion {
 
     HungerIsStamina main;
-
-    private static IJumping iJumping;
 
     public PlaceholderInit(HungerIsStamina his) {
         main = his;
@@ -85,7 +83,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
                                 }
                             return format.toString();
                         }
-                        else if (config.getBoolean("StaminaCostForJumpingEnabled", true) && iJumping.isJumping()) {
+                        else if (config.getBoolean("StaminaCostForJumpingEnabled", true) && JumpChecker.isJumping()) {
                             for (j = 1.0D; j < customBarLength + 1; ++j) {
                                 format.append(ratio >= j ? MMOCore.plugin.configManager.staminaFull : (ratio >= j - 0.5D ? MMOCore.plugin.configManager.staminaHalf : MMOCore.plugin.configManager.staminaEmpty)).append(customBarString);
                             }
@@ -106,7 +104,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
                 }
             }
             return format.toString();
-        } else if (identifier.equals("stamina_value")) {
+        } else if (identifier.equals("stamina_bar")) {
             format = new StringBuilder();
 
             if (config.getBoolean("SimpleStamina", false)) {
@@ -135,7 +133,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
                     }
                     // If Sprint & Jump & Swim are enabled
                     else if (config.getBoolean("StaminaCostForSprintingEnabled", true) && config.getBoolean("StaminaCostForJumpingEnabled", true) && config.getBoolean("StaminaCostForSwimmingEnabled", true)) {
-                        if (!p.isSprinting() && !iJumping.isJumping() && !p.isSwimming()) {
+                        if (!p.isSprinting() && !JumpChecker.isJumping() && !p.isSwimming()) {
                             format.append(config.getString("StaminaValueCharacter", "⚡")).append(MythicLib.plugin.getMMOConfig().decimal.format(mmoPlayer.getStamina()));
                         } else {
                             // This spacer value option is to allow a player to control what is showing when the placeholder is not visible,
@@ -156,7 +154,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
                     }
                     // Sprint & Jump
                     else if (config.getBoolean("StaminaCostForSprintingEnabled", true) && config.getBoolean("StaminaCostForJumpingEnabled", true) && !config.getBoolean("StaminaCostForSwimmingEnabled", true)) {
-                        if (!p.isSprinting() && !iJumping.isJumping()) {
+                        if (!p.isSprinting() && !JumpChecker.isJumping()) {
                             format.append(config.getString("StaminaValueCharacter", "⚡")).append(MythicLib.plugin.getMMOConfig().decimal.format(mmoPlayer.getStamina()));
                         } else {
                             format.append(config.getString("SpacerForValuePlaceHolder", "|"));
@@ -174,7 +172,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
                     }
                     // Jump Only
                     else if (!config.getBoolean("StaminaCostForSprintingEnabled", true) && config.getBoolean("StaminaCostForJumpingEnabled", true) && !config.getBoolean("StaminaCostForSwimmingEnabled", true)) {
-                        if (!iJumping.isJumping()) {
+                        if (!JumpChecker.isJumping()) {
                             format.append(config.getString("StaminaValueCharacter", "⚡")).append(MythicLib.plugin.getMMOConfig().decimal.format(mmoPlayer.getStamina()));
                         } else {
                             format.append(config.getString("SpacerForValuePlaceHolder", "|"));
@@ -183,7 +181,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
                     }
                     // Jump & Swim
                     else if (!config.getBoolean("StaminaCostForSprintingEnabled", true) && config.getBoolean("StaminaCostForJumpingEnabled", true) && config.getBoolean("StaminaCostForSwimmingEnabled", true)) {
-                        if (!iJumping.isJumping() && !p.isSwimming()) {
+                        if (!JumpChecker.isJumping() && !p.isSwimming()) {
                             format.append(config.getString("StaminaValueCharacter", "⚡")).append(MythicLib.plugin.getMMOConfig().decimal.format(mmoPlayer.getStamina()));
                         } else {
                             format.append(config.getString("SpacerForValuePlaceHolder", "|"));
