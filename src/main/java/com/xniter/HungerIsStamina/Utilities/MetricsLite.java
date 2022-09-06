@@ -1,13 +1,15 @@
 package com.xniter.HungerIsStamina.Utilities;
 
+import io.lumine.mythic.lib.gson.JsonArray;
+import io.lumine.mythic.lib.gson.JsonObject;
+import io.lumine.mythic.lib.gson.JsonParser;
+import io.lumine.mythic.lib.metrics.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicePriority;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
@@ -15,10 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
 
@@ -169,19 +168,18 @@ public class MetricsLite {
      * Gets the plugin specific data.
      * This method is called using Reflection.
      *
-     * @return The plugin specific data.
+     * @return The plugin specific data for Hunger Is Stamina.
      */
-    @SuppressWarnings("unchecked")
-    public JSONObject getPluginData() {
-        JSONObject data = new JSONObject();
+    public JsonObject getPluginData() {
+        JsonObject data = new JsonObject();
 
         String pluginName = plugin.getDescription().getName();
         String pluginVersion = plugin.getDescription().getVersion();
 
-        data.put("pluginName", pluginName); // Append the Labeled of the plugin
-        data.put("pluginVersion", pluginVersion); // Append the version of the plugin
-        JSONArray customCharts = new JSONArray();
-        data.put("customCharts", customCharts);
+        data.addProperty("pluginName", pluginName); // Append the Labeled of the plugin
+        data.addProperty("pluginVersion", pluginVersion); // Append the version of the plugin
+        JsonArray customCharts = new JsonArray();
+        data.add("customCharts", customCharts);
 
         return data;
     }
@@ -191,8 +189,7 @@ public class MetricsLite {
      *
      * @return The server specific data.
      */
-    @SuppressWarnings("unchecked")
-    private JSONObject getServerData() {
+    private JsonObject getServerData() {
         // Minecraft specific data
         int playerAmount;
         try {
@@ -215,19 +212,19 @@ public class MetricsLite {
         String osVersion = System.getProperty("os.version");
         int coreCount = Runtime.getRuntime().availableProcessors();
 
-        JSONObject data = new JSONObject();
+        JsonObject data = new JsonObject();
 
-        data.put("serverUUID", serverUUID);
+        data.addProperty("serverUUID", serverUUID);
 
-        data.put("playerAmount", playerAmount);
-        data.put("onlineMode", onlineMode);
-        data.put("bukkitVersion", bukkitVersion);
+        data.addProperty("playerAmount", playerAmount);
+        data.addProperty("onlineMode", onlineMode);
+        data.addProperty("bukkitVersion", bukkitVersion);
 
-        data.put("javaVersion", javaVersion);
-        data.put("osName", osName);
-        data.put("osArch", osArch);
-        data.put("osVersion", osVersion);
-        data.put("coreCount", coreCount);
+        data.addProperty("javaVersion", javaVersion);
+        data.addProperty("osName", osName);
+        data.addProperty("osArch", osArch);
+        data.addProperty("osVersion", osVersion);
+        data.addProperty("coreCount", coreCount);
 
         return data;
     }
@@ -235,40 +232,61 @@ public class MetricsLite {
     /**
      * Collects the data and sends it afterwards.
      */
-    @SuppressWarnings("unchecked")
     private void submitData() {
-        final JSONObject data = getServerData();
+        final JsonObject data = this.getServerData();
+        JsonArray pluginData = new JsonArray();
+        Iterator<Class<?>> var3 = Bukkit.getServicesManager().getKnownServices().iterator();
 
-        JSONArray pluginData = new JSONArray();
-        // Search for all other bStats Metrics classes to get their plugin data
-        for (Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
+        while(var3.hasNext()) {
+            Class<?> service = var3.next();
+
             try {
-                service.getField("B_STATS_VERSION"); // Our identifier :)
+                service.getField("B_STATS_VERSION");
+                Iterator var5 = Bukkit.getServicesManager().getRegistrations(service).iterator();
 
-                for (RegisteredServiceProvider<?> provider : Bukkit.getServicesManager().getRegistrations(service)) {
+                while(var5.hasNext()) {
+                    RegisteredServiceProvider<?> provider = (RegisteredServiceProvider)var5.next();
+
                     try {
-                        pluginData.add(provider.getService().getMethod("getPluginData").invoke(provider.getProvider()));
-                    } catch (NullPointerException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) {
+                        Object plugin = provider.getService().getMethod("getPluginData").invoke(provider.getProvider());
+                        if (plugin instanceof JsonObject) {
+                            pluginData.add((JsonObject)plugin);
+                        } else {
+                            try {
+                                Class<?> jsonObjectJsonSimple = Class.forName("org.json.simple.JSONObject");
+                                if (plugin.getClass().isAssignableFrom(jsonObjectJsonSimple)) {
+                                    Method jsonStringGetter = jsonObjectJsonSimple.getDeclaredMethod("toJSONString");
+                                    jsonStringGetter.setAccessible(true);
+                                    String jsonString = (String)jsonStringGetter.invoke(plugin);
+                                    JsonObject object = (new JsonParser()).parse(jsonString).getAsJsonObject();
+                                    pluginData.add(object);
+                                }
+                            } catch (ClassNotFoundException var12) {
+                                if (logFailedRequests) {
+                                    this.plugin.getLogger().log(Level.SEVERE, "Encountered unexpected exception", var12);
+                                }
+                            }
+                        }
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | NullPointerException var13) {
                     }
                 }
-            } catch (NoSuchFieldException ignored) {
+            } catch (NoSuchFieldException var14) {
             }
         }
 
-        data.put("plugins", pluginData);
-
-        // Create a new thread for the connection to the bStats server
-        new Thread(() -> {
-            try {
-                // Send the data
-                sendData(plugin, data);
-            } catch (Exception e) {
-                // Something went wrong! :(
-                if (logFailedRequests) {
-                    plugin.getLogger().log(Level.WARNING, "Could not submit plugin stats of " + plugin.getName(), e);
+        data.add("plugins", pluginData);
+        (new Thread(new Runnable() {
+            public void run() {
+                try {
+                    MetricsLite.sendData(MetricsLite.this.plugin, data);
+                } catch (Exception var2) {
+                    if (MetricsLite.logFailedRequests) {
+                        MetricsLite.this.plugin.getLogger().log(Level.WARNING, "Could not submit plugin stats of " + MetricsLite.this.plugin.getName(), var2);
+                    }
                 }
+
             }
-        }).start();
+        })).start();
     }
 
     /**
@@ -278,7 +296,7 @@ public class MetricsLite {
      * @param data   The data to send.
      * @throws Exception If the request failed.
      */
-    private static void sendData(Plugin plugin, JSONObject data) throws Exception {
+    private static void sendData(Plugin plugin, JsonObject data) throws Exception {
         if (data == null) {
             throw new IllegalArgumentException("Data cannot be null!");
         }
