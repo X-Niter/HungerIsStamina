@@ -17,8 +17,6 @@ import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
 public class PlayerJumping implements Listener {
     public static HungerIsStamina main;
 
-    private static JumpChecker jumpChecker;
-
     public PlayerJumping(HungerIsStamina his) {
         main = his;
 
@@ -34,7 +32,7 @@ public class PlayerJumping implements Listener {
                     if (!p.isDead() && !p.isInWater() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
                         // Default Advanced System
                         if (!main.getConfig().getBoolean("SimpleStamina", false)) {
-                            if (jumpChecker.isJumping() && !p.isInvulnerable()) {
+                            if (JumpChecker.isJumping() && !p.isInvulnerable()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForJumping", 1));
                                 if (data.getStamina() <= 1) {
                                     data.setStamina(0);
@@ -42,7 +40,7 @@ public class PlayerJumping implements Listener {
                                 }
                             }
                             // Sneaking and Jumping
-                            if (p.isSneaking() && jumpChecker.isJumping() && !p.isInvulnerable()) {
+                            if (p.isSneaking() && JumpChecker.isJumping() && !p.isInvulnerable()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForJumping", 1) - 0.5);
                                 if (data.getStamina() <= 1) {
                                     data.setStamina(0);
@@ -54,12 +52,12 @@ public class PlayerJumping implements Listener {
                         // Simple Stamina System
                         if (main.getConfig().getBoolean("SimpleStamina", false)) {
                             // Jumping
-                            if (jumpChecker.isJumping() && !p.isInvulnerable()) {
+                            if (JumpChecker.isJumping() && !p.isInvulnerable()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForJumping", 1));
                                 p.setFoodLevel(staminaToFoodCalc(data));
                             }
                             // Sneaking and Jumping
-                            if (p.isSneaking() && jumpChecker.isJumping() && !p.isInvulnerable()) {
+                            if (p.isSneaking() && JumpChecker.isJumping() && !p.isInvulnerable()) {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForJumping", 1) - 0.5);
                                 p.setFoodLevel(staminaToFoodCalc(data));
                             }

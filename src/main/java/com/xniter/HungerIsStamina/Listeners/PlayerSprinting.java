@@ -18,9 +18,6 @@ import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
 public class PlayerSprinting implements Listener {
     public static HungerIsStamina main;
 
-    private static JumpChecker jumpChecker;
-
-
     public PlayerSprinting(HungerIsStamina his) {
         main = his;
 
