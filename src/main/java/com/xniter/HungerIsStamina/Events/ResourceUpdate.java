@@ -58,6 +58,6 @@ public class ResourceUpdate implements Listener {
     }
 
     public int staminaToFoodCalc(PlayerData data) {
-        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20.0D)));
+        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20)));
     }
 }
