@@ -3,7 +3,6 @@ package com.xniter.HungerIsStamina.Utilities;
 import io.lumine.mythic.lib.gson.JsonArray;
 import io.lumine.mythic.lib.gson.JsonObject;
 import io.lumine.mythic.lib.gson.JsonParser;
-import io.lumine.mythic.lib.metrics.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;

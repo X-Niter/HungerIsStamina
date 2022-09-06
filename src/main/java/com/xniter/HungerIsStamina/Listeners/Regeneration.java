@@ -9,8 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Objects;
 
 public class Regeneration implements Listener {
     public static HungerIsStamina main;

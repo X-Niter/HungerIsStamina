@@ -32,15 +32,14 @@ public class Commands implements CommandExecutor, Listener {
         Player player;
 
         switch (args[0].toLowerCase()) {
-            case "reload":
+            case "reload" -> {
                 if (!sender.hasPermission("hungerisstamina.reload")) {
                     sender.sendMessage(Message.NO_PERM.get());
                     return true;
                 }
-
                 plugin.reload(sender);
-                break;
-            case "debug":
+            }
+            case "debug" -> {
                 if (!sender.hasPermission("hungerisstamina.debug")) {
                     sender.sendMessage(Message.NO_PERM.get());
                     return true;
@@ -49,9 +48,7 @@ public class Commands implements CommandExecutor, Listener {
                     sender.sendMessage(Message.ONLY_PLAYERS.get());
                     return true;
                 }
-
                 player = (Player) sender;
-
                 if (args.length > 1 && args[1].equalsIgnoreCase("all")) {
                     if (plugin.getConsoleOutput().getListeners().contains(sender)) {
                         plugin.getConsoleOutput().removeListener(sender);
@@ -62,13 +59,12 @@ public class Commands implements CommandExecutor, Listener {
                     }
                     return false;
                 }
-
                 if (plugin.getConsoleOutput().switchPersonalDebug(sender)) {
                     sender.sendMessage(Message.DEBUG_ON.get(player));
                 } else {
                     sender.sendMessage(Message.DEBUG_OFF.get(player));
                 }
-                break;
+            }
             /*case "load":
                 if (!sender.hasPermission("hungerisstamina.load.simplestamina") || !sender.hasPermission("hungerisstamina.load.advancedstamina")) {
                     sender.sendMessage(Message.NO_PERM.get());

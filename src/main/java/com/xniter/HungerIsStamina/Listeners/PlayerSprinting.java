@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Objects;
 
 import static io.lumine.mythic.lib.api.stat.SharedStat.MAX_STAMINA;
