@@ -29,7 +29,7 @@ public class PlayerSprinting implements Listener {
                 if (p != null && p.isOnline() && main.getConfig().getBoolean("StaminaCostForSprintingEnabled", true)) {
                     //int foodReduceAmount = Utils.getFoodReduceAmount(p);
                     final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(Objects.requireNonNull(p.getPlayer()).getUniqueId());
-                    if (!p.isDead() && !p.isSwimming() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && !p.isInvulnerable()) {
+                    if (!p.isDead() && !p.isFlying() && !p.isSwimming() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && !p.isInvulnerable()) {
                         // Run & Jumping
                         if (!main.getConfig().getBoolean("SimpleStamina", false)) {
                             if (p.isSprinting() && JumpChecker.isJumping()) {

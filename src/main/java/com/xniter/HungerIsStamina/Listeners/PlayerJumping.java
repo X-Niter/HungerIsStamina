@@ -29,7 +29,7 @@ public class PlayerJumping implements Listener {
                 if (p != null && p.isOnline() && main.getConfig().getBoolean("StaminaCostForJumpingEnabled", true)) {
                     final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(p.getPlayer().getUniqueId());
                     //Vector velocity = p.getVelocity();
-                    if (!p.isDead() && !p.isInWater() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
+                    if (!p.isDead() && !p.isFlying() && !p.isInWater() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
                         // Default Advanced System
                         if (!main.getConfig().getBoolean("SimpleStamina", false)) {
                             if (JumpChecker.isJumping() && !p.isInvulnerable()) {

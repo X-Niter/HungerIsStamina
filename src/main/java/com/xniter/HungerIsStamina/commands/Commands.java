@@ -40,6 +40,7 @@ public class Commands implements CommandExecutor, Listener {
                 plugin.reload(sender);
             }
             case "debug" -> {
+                // TODO: Add some messages for admins to debug things like the math of which something drains or regens.
                 if (!sender.hasPermission("hungerisstamina.debug")) {
                     sender.sendMessage(Message.NO_PERM.get());
                     return true;

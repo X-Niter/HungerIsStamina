@@ -33,7 +33,7 @@ public class JumpChecker implements Listener {
             double jumpBoostTwoVelocity = (double) 0.62F;
 
             if (e.getPlayer().getLocation().getBlock().getType() != Material.WATER && e.getPlayer().getLocation().getBlock().getType() != Material.LADDER && prevPlayersOnGround.contains(player.getUniqueId())) {
-                if (!player.isOnGround() && !player.isInvulnerable() && !player.isInWater() && player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR && !player.isFlying()) {
+                if (!player.isOnGround() && !player.isFlying() && !player.isInvulnerable() && !player.isInWater() && player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR && !player.isFlying()) {
                     if (Double.compare(player.getVelocity().getY(), jumpVelocity) == 0 || Double.compare(player.getVelocity().getY(), jumpBoostOneVelocity) == 0 || Double.compare(player.getVelocity().getY(), jumpBoostTwoVelocity) == 0) {
                         //player.setJumping(true);
                         setJumping(true);

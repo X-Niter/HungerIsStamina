@@ -25,7 +25,7 @@ public class PlayerSwimming implements Listener {
             for (Player p : online_players) {
                 if (p != null && p.isOnline() && main.getConfig().getBoolean("StaminaCostForSwimmingEnabled", true)) {
                     final PlayerData data = MMOCore.plugin.dataProvider.getDataManager().get(Objects.requireNonNull(p.getPlayer()).getUniqueId());
-                    if (p.isInWater() && !p.isDead() && !p.isSprinting() && !p.isInvulnerable() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
+                    if (p.isInWater() && !p.isDead() && !p.isFlying() && !p.isSprinting() && !p.isInvulnerable() && p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR) {
 
                         // Default System
                         if (!main.getConfig().getBoolean("SimpleStamina", false)) {

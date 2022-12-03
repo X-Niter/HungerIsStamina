@@ -46,6 +46,8 @@ public class PlaceholderInit extends PlaceholderExpansion {
         return HungerIsStamina.getInstance().getDescription().getVersion();
     }
 
+    private static PlayerData pData;
+
     public String onRequest(OfflinePlayer player, String identifier) {
         PlayerData mmoPlayer = PlayerData.get(player);
         Player p = mmoPlayer.getPlayer();
@@ -59,7 +61,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
         MMOCore does not give options to modify the stamina bar at all! Which for a plugin that gives an RPG system that YOU have to configure and isn't done out of the box, I would have expected this small ability
         , Nonetheless, here is an option to have a custom MMOCore stamina bar!
          */
-        if (identifier.equals("custom_stamina_bar")) {
+        if (identifier.equals("stamina_bar")) {
             format = new StringBuilder();
             int customBarLength = config.getInt("StaminaBarLength", 12);
             String customBarString = config.getString("StaminaBarCharacter", "█");
@@ -76,7 +78,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
                 }
                 if (!config.getBoolean("ConstantBar", false) && config.getBoolean("AlternatingBarAndValue", true)) {
 
-                    if (p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && !p.isInvulnerable()) {
+                    if (p.getGameMode() != GameMode.CREATIVE && p.getGameMode() != GameMode.SPECTATOR && !p.isFlying() && !p.isInvulnerable()) {
                         if (config.getBoolean("StaminaCostForSprintingEnabled", true) && !p.isInWater() && p.isSprinting()) {
                                 for (j = 1.0D; j < customBarLength + 1; ++j) {
                                     format.append(ratio >= j ? MMOCore.plugin.configManager.staminaFull : (ratio >= j - 0.5D ? MMOCore.plugin.configManager.staminaHalf : MMOCore.plugin.configManager.staminaEmpty)).append(customBarString);
@@ -104,7 +106,9 @@ public class PlaceholderInit extends PlaceholderExpansion {
                 }
             }
             return format.toString();
-        } else if (identifier.equals("stamina_bar")) {
+        }
+
+        if (identifier.equals("stamina_icon")) {
             format = new StringBuilder();
 
             if (config.getBoolean("SimpleStamina", false)) {
@@ -127,7 +131,7 @@ public class PlaceholderInit extends PlaceholderExpansion {
 
                     /*If player is creative, spectator or is Invulnerable, then we don't alternate sense they won't be using stamina anyways.
                      *Alternating is to only show the bar when stamina is being drained by our plugins actions, Sprinting, Jumping, or swimming*/
-                    if (p.getGameMode() == GameMode.CREATIVE || p.getGameMode() == GameMode.SPECTATOR || p.isInvulnerable()) {
+                    if (p.getGameMode() == GameMode.CREATIVE || p.isFlying() || p.getGameMode() == GameMode.SPECTATOR || p.isInvulnerable()) {
                         format.append(config.getString("StaminaValueCharacter", "⚡")).append(MythicLib.plugin.getMMOConfig().decimal.format(mmoPlayer.getStamina()));
                         return format.toString();
                     }
@@ -205,6 +209,11 @@ public class PlaceholderInit extends PlaceholderExpansion {
                 format.append(config.getString("StaminaValueCharacter", "⚡")).append(MythicLib.plugin.getMMOConfig().decimal.format(mmoPlayer.getStamina()));
                 return format.toString();
             }
+            return format.toString();
+        }
+
+        if (identifier.equals("stamina_count")) {
+            format = new StringBuilder(MythicLib.plugin.getMMOConfig().decimal.format(mmoPlayer.getStamina()));
             return format.toString();
         }
         return null;
