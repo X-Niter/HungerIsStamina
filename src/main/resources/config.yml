@@ -175,7 +175,7 @@ ConstantValue: false
 AlternatingBarAndValue: true
 
 
-# When 'AlternatingBarAndValue' is true, %his_custom_sprint_bar% and %stamina_value% placeholder becomes a spacer of "|"
+# When 'AlternatingBarAndValue' is true, %his_stamina_bar% and %stamina_count% placeholder becomes a spacer of "|"
 # This setting will allow you to change the spacer to what ever character you want.
 # If you want this to be a blank space, set this to " "
 SpacerForBarPlaceHolder: "|"
