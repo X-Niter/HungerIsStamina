@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.joml.Math;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -36,6 +37,7 @@ public class PlayerSprinting implements Listener {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForSprinting", 1) - main.getConfig().getInt("StaminaCostForJumping", 2));
                                 if (data.getStamina() <= 1) {
                                     data.setStamina(0);
+                                    //TODO Option to disable it taking away hunger; which would rule out the hunger completely
                                     p.setFoodLevel(p.getFoodLevel() - main.getConfig().getInt("StaminaCostForSprinting", 1) - 1);
                                 }
                             }
@@ -44,6 +46,7 @@ public class PlayerSprinting implements Listener {
                                 data.setStamina(data.getStamina() - main.getConfig().getInt("StaminaCostForSprinting", 1));
                                 if (data.getStamina() <= 1) {
                                     data.setStamina(0);
+                                    //TODO Option to disable it taking away hunger; which would rule out the hunger completely
                                     p.setFoodLevel(p.getFoodLevel() - main.getConfig().getInt("StaminaCostForSprinting", 1));
                                 }
                             }
@@ -66,6 +69,6 @@ public class PlayerSprinting implements Listener {
         }, 0, (int) main.getConfig().get("StaminaDrainTickSpeedSprint", 20));
     }
     public int staminaToFoodCalc(PlayerData data) {
-        return (int)Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20.0D)));
+        return (int) Math.ceil(Math.min(20.0D, Math.max(0.0D, data.getStamina() / data.getStats().getStat(MAX_STAMINA) * 20.0D)));
     }
 }
