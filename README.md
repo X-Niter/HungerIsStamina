@@ -1,5 +1,5 @@
 <p>
-  <a href="https://discord.gg/n3uEJwg">
+  <a href="https://discord.gg/TpkjgAs">
       <img src="https://discordapp.com/api/guilds/401537312246202389/widget.png" alt="Discord-Server"/>
   </a>
   <a href="https://twitter.com/X_Niter">
